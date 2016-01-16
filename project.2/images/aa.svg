@@ -1,0 +1,10 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+       xmlns:xlink="http://www.w3.org/1999/xlink"
+       width="120" height="120" viewBox="0 0 120 120">
+  <!--<path d="M30 60 L60 0 L90 60 Z" style="fill: #ef6518" />-->
+  <path d="M30 60 L60 0 L90 60 Z" style="fill: #f5a623" />
+  <path d="M0 90 L30 120 L60 90 L30 60 Z" style="fill: #f5a623" />
+  <path d="M120 90 L90 120 L60 90 L90 60 Z" style="fill: #f5a623"/>
+</svg>
+
+
