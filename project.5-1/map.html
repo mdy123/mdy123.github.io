@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Project 5-1 </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+
+    <!--  add inline css for better performance -->
+    <style>
+        html,
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            z-index: 99;
+            width: 25%;
+        }
+        
+        .collapseButton,
+        #collapseDiv,
+        .searchInput,
+        .stationDiv {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .searchInput {
+            border-style: solid;
+            background: rgba(0, 0, 0, 0.50);
+            ;
+        }
+        
+        #map,
+        .mapParent {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        @media only screen and (max-width: 749px) {
+            .collapseButton,
+            .searchInput {
+                font-size: 11px;
+                font-weight: 900;
+            }
+            .stationDiv {
+                font-size: 11px;
+                color: #191970;
+            }
+        }
+        
+        @media only screen and (min-width: 750px) and (max-width: 1049px) {
+            .collapseButton,
+            .searchInput {
+                font-size: 18px;
+                font-weight: 900;
+            }
+            .stationDiv {
+                font-size: 18px;
+                color: #191970;
+            }
+        }
+        
+        @media only screen and (min-width: 1050px) {
+            .collapseButton,
+            .searchInput {
+                font-size: 16px;
+                font-weight: 900;
+            }
+            .stationDiv {
+                font-size: 16px;
+                color: #191970;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button type="button" class="btn btn-info collapseButton " data-toggle="collapse" data-target="#collapseDiv">Caltrain</button>
+        <div id="collapseDiv" class="collapse" data-bind="with: menuview">
+            <input class="searchInput" type="search" data-bind="textInput: searchData">
+            <!-- ko foreach: addressArray -->
+            <div class="stationDiv" role="button" data-bind="click: $parent.clickEvt"><strong data-bind="text: name"></strong></div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="mapParent" data-bind="with: mapView">
+        <div id="map" data-bind="mapHandler: mapObj"></div>
+    </div>
+    <script src="./js/jquery-2.1.4.min.js"></script>
+    <script src="./js/knockout.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/caltrain-stations.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="./js/map.js"></script>
+    <script src="./js/menu-search.js"></script>
+
+    <script>
+        // apply binding two view models to UI 
+        // one for map and one for search menu
+        var viewModel = {
+            mapview: mapView,
+            menuview: view
+        };
+        ko.applyBindings(viewModel);
+
+        window.onresize = function(event) {
+            document.location.reload(true);
+        }
+    </script>
+
+</body>
+
+</html>
