@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> project 5-1 </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+
+
+    <!--  add inline css for better performance -->
+    <style>
+        html,
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            z-index: 99;
+        }
+        
+        .collapseButton,
+        #collapseDiv,
+        .searchInput,
+        .stationDiv {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #collapseDiv {
+            max-height: 100vh;
+            overflow: scroll;
+        }
+        
+        .searchInput {
+            border-style: solid;
+            background: rgba(0, 0, 0, 0.50);
+            ;
+        }
+        
+        #map,
+        .mapParent {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        @media only screen and (max-width: 749px) {
+            .collapseButton,
+            .searchInput {
+                font-size: 11px;
+                font-weight: 900;
+            }
+            .stationDiv {
+                font-size: 11px;
+                color: #191970;
+            }
+            .container {
+                width: 25%;
+            }
+        }
+        
+        @media only screen and (min-width: 750px) and (max-width: 1049px) {
+            .collapseButton,
+            .searchInput {
+                font-size: 18px;
+                font-weight: 900;
+            }
+            .stationDiv {
+                font-size: 18px;
+                color: #191970;
+            }
+            .container {
+                width: 25%;
+            }
+        }
+        
+        @media only screen and (min-width: 1050px) {
+            .collapseButton,
+            .searchInput {
+                font-size: 16px;
+                font-weight: 900;
+            }
+            .stationDiv {
+                font-size: 16px;
+                color: #191970;
+            }
+            .container {
+                width: 15%;
+            }
+        }
+        
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button type="button" class="btn btn-info collapseButton " data-toggle="collapse" data-target="#collapseDiv">Caltrain</button>
+        <div id="collapseDiv" class="collapse" data-bind="with: menuview">
+            <input class="searchInput" type="search" data-bind="textInput: searchData">
+            <!-- ko foreach: addressArray -->
+            <div class="stationDiv" role="button" data-bind="click: $parent.clickEvt"><strong data-bind="text: name"></strong></div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="mapParent" data-bind="with: mapView">
+        <div id="map" data-bind="mapHandler: mapObj"></div>
+    </div>
+
+    <script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" onerror="mapError()">
+    </script>
+    <script src="./js/jquery-2.1.4.min.js"></script>
+    <script src="./js/knockout.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/caltrain-stations.js"></script>
+    <script src="./js/menu-search.js"></script>
+
+    <script>
+        function initMap() {
+            var elem = document.createElement('script');
+            elem.setAttribute('src', './js/map.js');
+            document.getElementsByTagName('head')[0].appendChild(elem);
+        };
+
+        function mapError() {
+            alert("Google map api error....")
+        }
+        //window.onresize = function(event) {
+        //    document.location.reload(true);
+        //}
+    </script>
+
+
+</body>
+
+</html>
