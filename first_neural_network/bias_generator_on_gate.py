@@ -1,5 +1,37 @@
 # Generate bias number depend on the weights assigned  and type of Logic Gate 
 
+gate = 'NOT' # Select gate type 'AND', 'NNAD', 'OR', 'NOR' and 'NOT'
+def gen(w1,w2,gate):
+    gates = {'OR' :{'w': 1, 'b':-1 },
+            'NOR' :  {'w': -1, 'b':1 },
+            'AND' : {'w': 1, 'b':-1 },
+            'NAND' : {'w': -1, 'b':1 }, 
+            'NOT' : {'w': -1, 'b':1 }
+            }
+    minimum  = min([w1,w2])
+    maximum  = max([w1,w2])
+    if gate == ('OR' or 'NOR' ):
+        b= (minimum-0)/2
+        #print(gate + ' Gate :  >0 or <w2({}), bias = {}'.format(minimum, b))
+    else:
+        if gate == ('NOT' ):
+            b = (w2 - 0) /2
+            #print(gate  + ' Gate  :  >max({}) or =<w1+w2({}) , bias = {}'. format(maximum, w1+w2, b ))
+        else:
+            b= ((w1+w2+maximum))/2
+            #print(gate  + ' Gate  :  >max({}) or =<w1+w2({}) , bias = {}'. format(maximum, w1+w2, b ))
+
+    w1 = w1 * gates[gate]['w']
+    w2 = w2 * gates[gate]['w']
+    b =  b * gates[gate]['b']
+    
+    return (w1,w2,b)
+
+
+
+
+#===================================================================
+
 gate='OR' # Select gate type 'AND', 'NNAD', 'OR' and 'NOR'
 
 # Assigned weights w1 and w1 
@@ -38,3 +70,5 @@ for x in inputs:
     m = ((x[0] * w1 + x[1] * w2)  + b)
     result = m >= 0.0
     print(result)
+
+
