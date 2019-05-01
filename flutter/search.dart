@@ -1,0 +1,144 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      title: 'Search List',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyApp(),
+      },
+    ),
+  );
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<String> _sList = [
+    "Alabama",
+    "Alaska",
+    "American Samoa",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "District Of Columbia",
+    "Federated States Of Micronesia",
+    "Florida",
+    "Georgia",
+    "Guam",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Marshall Islands",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Northern Mariana Islands",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Palau",
+    "Pennsylvania",
+    "Puerto Rico",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virgin Islands",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming"
+  ];
+  List<String> _sListTemp = new List();
+  List<String> _sListBackup = new List();
+  @override
+  void initState() {
+    _sListBackup = _sList;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    this.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Search States'),
+      ),
+      body: Flex(
+        direction: Axis.vertical,
+        children: <Widget>[
+          Flexible(
+            flex: 2,
+            child: TextField(
+              onChanged: (value) {
+                _sListTemp.clear();
+                _sListBackup.forEach((item) =>
+                    item.toLowerCase().startsWith(value.toLowerCase())
+                        ? _sListTemp.add(item)
+                        : null);
+
+                setState(() {
+                  _sList = _sListTemp;
+                });
+              },
+            ),
+          ),
+          Flexible(
+            child: SizedBox(
+              height: 35,
+            ),
+          ),
+          Flexible(
+            flex: 13,
+            fit: FlexFit.tight,
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: _sList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title:
+                      Text((index + 1).toString() + '   -   ' + _sList[index]),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
