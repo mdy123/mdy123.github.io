@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -10,27 +11,26 @@ void main() {
   ));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
+class MyModel extends Model {
+  List<List<Color>> _cll = [
+    [Colors.red, Colors.cyan, Colors.red],
+    [Colors.cyan, Colors.red, Colors.cyan],
+    [Colors.red, Colors.cyan, Colors.red]
+  ];
+  List<List<Color>> get cll => _cll;
+  void changColor(Color c, int x, int y) {
+    print('$x - $y ');
+    _cll[x][y] = c;
+    notifyListeners();
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   final List<Color> playerColor = [Colors.amber, Colors.green];
-  int playerNo = 0;
-  List<List<Color>> _cll = [];
+  int _playerNo = 0;
 
-  @override
-  void initState() {
-    _cll = [
-      [Colors.red, Colors.cyan, Colors.red],
-      [Colors.cyan, Colors.red, Colors.cyan],
-      [Colors.red, Colors.cyan, Colors.red]
-    ];
-    super.initState();
-  }
+  Widget buildBlock(context, model) {
 
-  Widget buildBlock() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -41,20 +41,20 @@ class _MyAppState extends State<MyApp> {
               for (var x = 0; x < 3; x++)
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      if (_cll[y][x] == Colors.red ||
-                          _cll[y][x] == Colors.cyan) {
-                        _cll[y][x] = playerColor[playerNo % 2];
-                        playerNo++;
-                      }
-                    });
+                    if (model.cll[y][x] == Colors.red ||
+                        model.cll[y][x] == Colors.cyan) {
+                      //model.cll[y][x] = playerColor[playerNo.isEven ? 0 : 1];
+                      model.changColor(
+                          playerColor[_playerNo.isEven ? 0 : 1], y, x);
+                      _playerNo++;
+                    }
                   },
                   child: Container(
                     key: Key(y.toString() + x.toString()),
                     width: MediaQuery.of(context).size.width / 3,
                     height: MediaQuery.of(context).size.width / 3,
                     decoration: BoxDecoration(
-                      color: _cll[y][x],
+                      color: model.cll[y][x],
                     ),
                     child: Text('$y - $x'),
                   ),
@@ -68,25 +68,36 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Flex(
-      direction: Axis.vertical,
-      children: <Widget>[
-        Flexible(
-          flex: 1,
-          child: Container(),
+      appBar: AppBar(
+        title: Text('Scope Model'),
+      ),
+      body: ScopedModel<MyModel>(
+        model: MyModel(),
+        child: ScopedModelDescendant<MyModel>(
+          builder: (context, child, model) {
+            return Flex(
+              direction: Axis.vertical,
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Container(),
+                ),
+                Flexible(
+                  fit: FlexFit.loose,
+                  flex: 5,
+                  child: Container(
+                    child: buildBlock(context, model),
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Container(),
+                )
+              ],
+            );
+          },
         ),
-        Flexible(
-          fit: FlexFit.loose,
-          flex: 5,
-          child: Container(
-            child: buildBlock(),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Container(),
-        )
-      ],
-    ));
+      ),
+    );
   }
 }
