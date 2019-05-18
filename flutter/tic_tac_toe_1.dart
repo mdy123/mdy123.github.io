@@ -17,17 +17,22 @@ class MyModel extends Model {
     [Colors.cyan, Colors.red, Colors.cyan],
     [Colors.red, Colors.cyan, Colors.red]
   ];
+  int _playerNo = 0;
+
+  int get playerNo => _playerNo;
   List<List<Color>> get cll => _cll;
+
   void changColor(Color c, int x, int y) {
     print('$x - $y ');
     _cll[x][y] = c;
+    _playerNo++;
     notifyListeners();
   }
 }
 
 class MyApp extends StatelessWidget {
   final List<Color> playerColor = [Colors.amber, Colors.green];
-  int _playerNo = 0;
+  //int playerNo = 0;
 
   Widget buildBlock(context, model) {
 
@@ -45,8 +50,8 @@ class MyApp extends StatelessWidget {
                         model.cll[y][x] == Colors.cyan) {
                       //model.cll[y][x] = playerColor[playerNo.isEven ? 0 : 1];
                       model.changColor(
-                          playerColor[_playerNo.isEven ? 0 : 1], y, x);
-                      _playerNo++;
+                          playerColor[model.playerNo.isEven ? 0 : 1], y, x);
+                      //playerNo++;
                     }
                   },
                   child: Container(
@@ -61,6 +66,7 @@ class MyApp extends StatelessWidget {
                 )
             ],
           ),
+
       ],
     );
   }
@@ -91,7 +97,11 @@ class MyApp extends StatelessWidget {
                 ),
                 Flexible(
                   flex: 1,
-                  child: Container(),
+                  child: Container(
+                    child: Text('Player ${model.playerNo  % 2 +1}',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
                 )
               ],
             );
