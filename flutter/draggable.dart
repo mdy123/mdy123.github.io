@@ -5,30 +5,19 @@ void main() {
     MaterialApp(
       title: 'Dragable',
       initialRoute: '/',
-      routes: {'/': (context) => MyApp()},
+      routes: {'/': (context) => MyApp1()},
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  GlobalKey<ScaffoldState> _globalKey = new GlobalKey();
+class MyApp1 extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _globalKey = new GlobalKey();
   final List<Color> _cList = [Colors.red, Colors.blue, Colors.green];
-
-  Color _dTargetColor;
-  @override
-  void initState() {
-    _dTargetColor = Colors.orange;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     final gWidget = new GWidget(_cList, _globalKey);
+    Color _dTargetColor = Colors.deepPurpleAccent;
     return Scaffold(
       key: _globalKey,
       appBar: AppBar(
