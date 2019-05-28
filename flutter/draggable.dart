@@ -12,11 +12,15 @@ void main() {
 
 class MyApp1 extends StatelessWidget {
   final GlobalKey<ScaffoldState> _globalKey = new GlobalKey();
-  final List<Color> _cList = [Colors.red, Colors.blue, Colors.green];
 
+  final Map<String, Color> _mList = {
+    'Red': Colors.red,
+    'Blue': Colors.blue,
+    'Green': Colors.green
+  };
   @override
   Widget build(BuildContext context) {
-    final gWidget = new GWidget(_cList, _globalKey);
+    final gWidget = new GWidget(_mList, _globalKey);
     Color _dTargetColor = Colors.deepPurpleAccent;
     return Scaffold(
       key: _globalKey,
@@ -31,7 +35,7 @@ class MyApp1 extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  for (var x = 0; x < 3; x++) gWidget.gDraggable(_cList[x], x),
+                  for (var x in _mList.keys) gWidget.gDraggable(_mList[x], x),
                 ],
               ),
             ),
@@ -49,9 +53,10 @@ class MyApp1 extends StatelessWidget {
 class GWidget {
   final double _size = 85;
   GlobalKey<ScaffoldState> _globalKeyCopy;
-  List<Color> _cListCopy;
-  GWidget(this._cListCopy, this._globalKeyCopy);
-  Widget gDraggable(Color c, int x) {
+
+  Map<String, Color> _mListCopy;
+  GWidget(this._mListCopy, this._globalKeyCopy);
+  Widget gDraggable(Color c, String x) {
     return Draggable(
         data: x,
         childWhenDragging: gContainer(Colors.transparent),
@@ -71,12 +76,11 @@ class GWidget {
     return DragTarget(onWillAccept: (data) {
       return true;
     }, onAccept: (data) {
-      c = _cListCopy[data];
-      _globalKeyCopy.currentState.showSnackBar(SnackBar(
-          content:
-              Text('Color changed to ${_cListCopy[data].value.toString()}')));
+      c = _mListCopy[data];
+      _globalKeyCopy.currentState
+          .showSnackBar(SnackBar(content: Text('Color changed to $data')));
       print(data);
-    }, builder: (context, List<int> candidateData, rejectedData) {
+    }, builder: (context, List<String> candidateData, rejectedData) {
       return Container(
         color: c,
         width: 150,
