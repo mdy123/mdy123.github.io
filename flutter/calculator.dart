@@ -16,15 +16,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List<List<String>> keys = [
-    ['7', '8', '9', '/'],
-    ['4', '5', '6', '*'],
-    ['1', '2', '3', '-'],
-    ['0', '.', '%', '+']
-  ];
+  List<List<String>> keys = [];
   @override
   void initState() {
-
+    keys = [
+      ['7', '8', '9', '/'],
+      ['4', '5', '6', '*'],
+      ['1', '2', '3', '-'],
+      ['0', '.', '%', '+']
+    ];
     super.initState();
   }
 
@@ -75,32 +75,30 @@ class _MyAppState extends State<MyApp> {
   Widget genKeys() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
       children: <Widget>[
         for (var y = 0; y < 4; y++)
-          Flex(
-            direction: Axis.horizontal,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               for (var x = 0; x < 4; x++)
-                Flexible(
-                    fit: FlexFit.tight,
+                Expanded(
                     child: FlatButton(
-                      padding: EdgeInsets.all(15),
-                      shape: CircleBorder(
-                          side: BorderSide(
-                        color: Colors.grey,
-                        width: 3,
-                      )),
-                      onPressed: null,
-                      child: Text(
-                        keys[y][x],
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.brown,
-                        ),
-                      ),
-                    )),
+                  padding: EdgeInsets.all(15),
+                  shape: CircleBorder(
+                      side: BorderSide(
+                    color: Colors.grey,
+                    width: 3,
+                  )),
+                  onPressed: null,
+                  child: Text(
+                    keys[y][x],
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.brown,
+                    ),
+                  ),
+                )),
             ],
           ),
       ],
@@ -108,12 +106,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget genCancelBackEqual() {
-    return Flex(
-      direction: Axis.vertical,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         for (var x in ['C', 'B', '='])
-          Flexible(
-            fit: FlexFit.tight,
+          Expanded(
             child: Padding(
               padding: EdgeInsets.all(3),
               child: FlatButton(
