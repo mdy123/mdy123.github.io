@@ -10,13 +10,24 @@ void main() {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final List<List<String>> keys = [
     ['7', '8', '9', '/'],
     ['4', '5', '6', '*'],
     ['1', '2', '3', '-'],
-    ['0', '.', '%', '-']
+    ['0', '.', '%', '+']
   ];
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +74,8 @@ class MyApp extends StatelessWidget {
 
   Widget genKeys() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
       children: <Widget>[
         for (var y = 0; y < 4; y++)
           Flex(
@@ -70,7 +83,7 @@ class MyApp extends StatelessWidget {
             children: <Widget>[
               for (var x = 0; x < 4; x++)
                 Flexible(
-                    fit: FlexFit.loose,
+                    fit: FlexFit.tight,
                     child: FlatButton(
                       padding: EdgeInsets.all(15),
                       shape: CircleBorder(
