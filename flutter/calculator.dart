@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 void main() {
   runApp(MaterialApp(
     title: 'Calculator',
@@ -17,14 +18,21 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<List<String>> keys = [];
+  String formulaString;
+  //List<String> disResult ;
+  List<String> disResult ;
+
   @override
   void initState() {
+
     keys = [
       ['7', '8', '9', '/'],
       ['4', '5', '6', '*'],
       ['1', '2', '3', '-'],
       ['0', '.', '%', '+']
     ];
+    formulaString = '';
+    disResult = [];
     super.initState();
   }
 
@@ -39,16 +47,13 @@ class _MyAppState extends State<MyApp> {
           direction: Axis.vertical,
           children: <Widget>[
             Flexible(
+
               flex: 3,
-              child: Container(
-                color: Colors.orange,
-              ),
+              child: genDisResult(),
             ),
             Flexible(
               flex: 1,
-              child: Container(
-                color: Colors.red,
-              ),
+              child: genFormula(),
             ),
             Flexible(
                 flex: 5,
@@ -72,6 +77,62 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  Widget genDisResult(){
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+
+      children: <Widget>[
+        for (var x=0; x<disResult.length; x++)
+          GestureDetector(
+            onTap: (){
+              setState(() {
+                formulaString = disResult[x];
+              });
+            },
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 20,),
+              child: Text(disResult[x],
+                style: TextStyle(color: Colors.brown,
+                  fontSize: 27,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
+          ],
+        ),
+          ),
+
+      ],
+    );
+
+  }
+
+  Widget genFormula() {
+    return Container(
+      alignment: Alignment(0, 0),
+      decoration: BoxDecoration(
+          border:
+              Border(top: BorderSide(width: 2), bottom: BorderSide(width: 2))),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            formulaString,
+            style: TextStyle(
+              color: Colors.brown,
+              fontSize: 35,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget genKeys() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -89,7 +150,11 @@ class _MyAppState extends State<MyApp> {
                     color: Colors.grey,
                     width: 3,
                   )),
-                  onPressed: null,
+                  onPressed: (){
+                    setState(() {
+                      formulaString += keys[y][x] ;
+                    });
+                  },
                   child: Text(
                     keys[y][x],
                     style: TextStyle(
@@ -112,7 +177,7 @@ class _MyAppState extends State<MyApp> {
         for (var x in ['C', 'B', '='])
           Expanded(
             child: Padding(
-              padding: EdgeInsets.all(3),
+              padding: EdgeInsets.only(left: 3, right: 8, top: 15, bottom: 15),
               child: FlatButton(
                 shape: BeveledRectangleBorder(
                   side: BorderSide(
@@ -121,7 +186,26 @@ class _MyAppState extends State<MyApp> {
                   ),
                   borderRadius: BorderRadius.circular(5),
                 ),
-                onPressed: null,
+                onPressed: (){
+                  if (formulaString.isNotEmpty) {
+                  switch (x) {
+                    case 'C':
+                      setState(() {
+                       formulaString = '';
+                      });
+                      break;
+                    case 'B':
+                      setState(() {
+                        formulaString = formulaString.substring(0,formulaString.length-1);
+                      });
+                      break;
+                    case '=':
+                      setState(() {
+                        disResult.add( formulaString + x);
+                      });
+                      break;
+                  }}
+                },
                 child: Text(
                   x,
                   style: TextStyle(
