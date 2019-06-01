@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 void main() {
   runApp(MaterialApp(
     title: 'Calculator',
@@ -20,11 +19,10 @@ class _MyAppState extends State<MyApp> {
   List<List<String>> keys = [];
   String formulaString;
   //List<String> disResult ;
-  List<String> disResult ;
+  List<String> disResult;
 
   @override
   void initState() {
-
     keys = [
       ['7', '8', '9', '/'],
       ['4', '5', '6', '*'],
@@ -47,7 +45,6 @@ class _MyAppState extends State<MyApp> {
           direction: Axis.vertical,
           children: <Widget>[
             Flexible(
-
               flex: 3,
               child: genDisResult(),
             ),
@@ -77,38 +74,39 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Widget genDisResult(){
-
+  Widget genDisResult() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-
       children: <Widget>[
-        for (var x=0; x<disResult.length; x++)
+        for (var x = 0; x < disResult.length; x++)
           GestureDetector(
-            onTap: (){
+            onTap: () {
               setState(() {
-                formulaString = disResult[x];
+                formulaString =
+                    disResult[x].substring(0, disResult[x].indexOf('='));
               });
             },
             child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 20,),
-              child: Text(disResult[x],
-                style: TextStyle(color: Colors.brown,
-                  fontSize: 27,
-                  fontWeight: FontWeight.w900,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 20,
+                  ),
+                  child: Text(
+                    disResult[x],
+                    style: TextStyle(
+                      color: Colors.brown,
+                      fontSize: 27,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
           ),
-
       ],
     );
-
   }
 
   Widget genFormula() {
@@ -150,9 +148,9 @@ class _MyAppState extends State<MyApp> {
                     color: Colors.grey,
                     width: 3,
                   )),
-                  onPressed: (){
+                  onPressed: () {
                     setState(() {
-                      formulaString += keys[y][x] ;
+                      formulaString += keys[y][x];
                     });
                   },
                   child: Text(
@@ -186,25 +184,27 @@ class _MyAppState extends State<MyApp> {
                   ),
                   borderRadius: BorderRadius.circular(5),
                 ),
-                onPressed: (){
+                onPressed: () {
                   if (formulaString.isNotEmpty) {
-                  switch (x) {
-                    case 'C':
-                      setState(() {
-                       formulaString = '';
-                      });
-                      break;
-                    case 'B':
-                      setState(() {
-                        formulaString = formulaString.substring(0,formulaString.length-1);
-                      });
-                      break;
-                    case '=':
-                      setState(() {
-                        disResult.add( formulaString + x);
-                      });
-                      break;
-                  }}
+                    switch (x) {
+                      case 'C':
+                        setState(() {
+                          formulaString = '';
+                        });
+                        break;
+                      case 'B':
+                        setState(() {
+                          formulaString = formulaString.substring(
+                              0, formulaString.length - 1);
+                        });
+                        break;
+                      case '=':
+                        setState(() {
+                          disResult.add(formulaString + x + calculate(formulaString).toString());
+                        });
+                        break;
+                    }
+                  }
                 },
                 child: Text(
                   x,
@@ -219,5 +219,26 @@ class _MyAppState extends State<MyApp> {
           ),
       ],
     );
+  }
+
+  double calculate(String  s) {
+    Map<String, Function> mathL = {
+      '/': (x, y) => x / y,
+      '*': (x, y) => x * y,
+      '-': (x, y) => x - y,
+      '+': (x, y) => x + y,
+      '%': (x, y) => x % y
+    };
+    String key;
+    for(var x in mathL.keys)
+      {
+        if(s.contains(x))
+          key = x;
+      }
+    double first =double.parse(s.substring(0,s.indexOf(key)));
+    double second =double.parse(s.substring(s.indexOf(key)+1, s.length) );
+
+
+    return mathL[key](first,second);
   }
 }
