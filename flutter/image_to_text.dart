@@ -1,3 +1,32 @@
+/*
+
+android >> app >> src >> build.gradle
+dependencies {
+    .......
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-ml-vision:22.0.0'
+    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:18.0.0'
+
+}
+apply plugin: 'com.google.gms.google-services'
+
+andorid >> build.gradle
+    dependencies {
+     
+        classpath 'com.google.gms:google-services:4.3.0'
+    }
+
+android >> app >> src >>main >> AndoidMenifest.xml
+  <application>
+        ......
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr,label,barcode,face" />
+  </application>
+
+*/
+
+
 import 'package:flutter/material.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'dart:async';
