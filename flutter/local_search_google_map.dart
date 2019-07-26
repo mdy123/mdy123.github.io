@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -21,7 +22,7 @@ class _MyAppState extends State<MyApp> {
 
   final _googleUri = 'https://www.google.com/maps/search/';
   String _searchString = 'indian+food/';
-  final _location = '@37.5250163,-121.9429733,13z/';
+  String _location = '@37.5250163,-121.9429733,13z/';
   final _dataPre = ['!4m2!2m1', '!4m4!2m3!5m1', '!4m5!2m4!5m2'];
   final _dataLast = '!6e5';
   List<Color> _$Color = [Colors.grey, Colors.grey, Colors.grey, Colors.grey];
@@ -184,8 +185,9 @@ class _MyAppState extends State<MyApp> {
                               .toLowerCase()
                               .replaceAll(' ', '+') +
                           '/';
-                      print(_searchString);
 
+                      Position _position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+                      print(_position);
                       var _searchCountStarColor = _searchCount(_starColor);
                       var _searchCount$Color = _searchCount(_$Color);
 
@@ -196,25 +198,24 @@ class _MyAppState extends State<MyApp> {
                               ? 2
                               : (_searchCountStarColor.length +
                                   _searchCount$Color.length)];
-                      print(_dataPreString);
-                      //print(_dataPre[ (_searchCountStarColor.length + _searchCount$Color.length) > 1? 2: (_searchCountStarColor.length + _searchCount$Color.length)]);
+
+
 
                       var _starCodeString = '';
                       if (_searchCountStarColor.length > 0) {
-//                        print(_gen$CodeStarCode(
-//                            _searchCountStarColor, _starCode));
+
                         _starCodeString =
                             _gen$CodeStarCode(_searchCountStarColor, _starCode);
                       }
                       var _$CodeString = '';
                       if (_searchCount$Color.length > 0) {
-//                        print(_gen$CodeStarCode(_searchCount$Color, _$Code));
+
                         _$CodeString =
                             _gen$CodeStarCode(_searchCount$Color, _$Code);
                       }
 
-//                      final url =
-//                          '$_googleUri$_searchString${_location}data=${_dataPre[1]}${_starCode[5]}$_dataLast';
+
+                      _location ='@${_position.latitude},${_position.longitude},13z/';
                       final url =
                           '$_googleUri$_searchString${_location}data=$_dataPreString${_$CodeString}$_starCodeString$_dataLast';
                       print(url);
