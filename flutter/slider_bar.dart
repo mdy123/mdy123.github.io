@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,13 +29,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Flex (
-            direction: Axis.vertical,
-
-            children: <Widget>[
-
+        return Flex(direction: Axis.vertical, children: <Widget>[
           Flexible(
-
             child: Slider(
               value: _v,
               onChanged: (v) {
@@ -59,17 +53,26 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           Flexible(
-
             child: Align(
               alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Container(
-
-                  height: 45,
-                  width:  _v,
-                  color: Colors.deepOrange,
-                ),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    height: 45,
+                    width: _v,
+                    color: Colors.deepOrange,
+                    alignment: Alignment.center,
+                    child: Text('${_v.toInt()}'),
+                  ),
+                  Container(
+                    height: 45,
+                    width: constraints.constrainWidth().round().toDouble() - _v,
+                    color: Colors.blueAccent,
+                    alignment: Alignment.center,
+                    child: Text(
+                        '${constraints.constrainWidth().round() - _v.toInt()}'),
+                  ),
+                ],
               ),
             ),
           ),
