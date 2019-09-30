@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   String _value1 = 'Null';
 
   String _value2 = 'Null';
+  String _value3 = 'Null';
   final List<String> _catagory = [
     'Null',
     'posts',
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
     StepState.indexed
   ];
 
-  Widget _dropdownbutton(List<String> _items, String _selected) {
+  Widget _dropdownbutton(List<String> _items) {
     return DropdownButton<String>(
       elevation: 85,
       icon: Icon(Icons.arrow_downward),
@@ -71,78 +72,96 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Widget _w1;
 
-  Widget _w2;
-
-  @override
-  void initState() {
-    _w1 = _dropdownbutton(_catagory, 'Null');
-    _w2 = _dropdownbutton(_page, 'Null');
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Stepper(
-          currentStep: _currentStep,
-          onStepTapped: (x) {
-            setState(() {
-              _currentStep = x;
-              if (_currentStep < 2)
-              _currentStep == 0 ? _value2 = 'Null' : _value1 = 'Null';
-            });
-          },
-          onStepContinue: () {
-            setState(() {
+        return Flex(
+          direction: Axis.vertical,
+          children: <Widget>[
+            Flexible(
+              flex: 8,
+                child: Stepper(
+                  currentStep: _currentStep,
+                  onStepTapped: (x) {
+                    setState(() {
+                      _currentStep = x;
+                      if (_currentStep < 2)
+                        _currentStep == 0 ? _value2 = 'Null' : _value1 = 'Null';
+                    });
+                  },
+                  onStepContinue: () {
+                    setState(() {
 
-              if (_currentStep < 2)
-                switch (_currentStep) {
-                  case 0:
-                    {
-                      _value2 == 'Null' ?  _stepState[0] = StepState.error : _stepState[0] = StepState.indexed;
-                    }
-                    break;
-                  case 1:
-                    {
-                      _value1 == 'Null' ? _stepState[1] = StepState.error : _stepState[1] = StepState.indexed;
-                    }
-                    break;
-                    default: {}
-                    break;
-                };
+                      if (_currentStep < 2)
+                        switch (_currentStep) {
+                          case 0:
+                            {
+                              _value2 == 'Null' ?  _stepState[0] = StepState.error : _stepState[0] = StepState.indexed;
+                            }
+                            break;
+                          case 1:
+                            {
+                              _value1 == 'Null' ? _stepState[1] = StepState.error : _stepState[1] = StepState.indexed;
+                            }
+                            break;
+                          default: {
 
-              if (_currentStep < _isActiveList.length - 1) {
-                _currentStep++;
-                _isActiveList[_currentStep] = true;
-              }
-            });
-            print('Continue...');
-          },
-          onStepCancel: () {
-            print('Cancel...');
-          },
-          steps: [
-            Step(
-                state: _stepState[0],
-                title: Text('Web Address'),
-                subtitle: Text(_value2),
-                content: _w1,
-                isActive: _isActiveList[0]),
-            Step(
-                state: _stepState[1],
-                title: Text('Page Number'),
-                subtitle: Text(_value1),
-                content: _w2,
-                isActive: _isActiveList[1]),
-            Step(
-                state: _stepState[2],
-                title: Text('Go to Page'),
-                content: Text(''),
-                isActive: _isActiveList[2])
+                          }
+                          break;
+                        };
+                      if (_currentStep == 2)
+                        setState(() {
+                          _value3 = ('Catagory - $_value2, Page - $_value1');
+                        });
+
+                      if (_currentStep < _isActiveList.length - 1) {
+                        _currentStep++;
+                        _isActiveList[_currentStep] = true;
+                      }
+                    });
+                    print('Continue...');
+                  },
+                  onStepCancel: () {
+                    print('Cancel...');
+                  },
+                  steps: [
+                    Step(
+                        state: _stepState[0],
+                        title: Text('Web Address'),
+                        subtitle: Text(_value2),
+                        content: _dropdownbutton(_catagory),
+                        isActive: _isActiveList[0]),
+                    Step(
+                        state: _stepState[1],
+                        title: Text('Page Number'),
+                        subtitle: Text(_value1),
+                        content: _dropdownbutton(_page),
+                        isActive: _isActiveList[1]),
+                    Step(
+                        state: _stepState[2],
+                        title: Text('Go to Page'),
+                        content: Text(''),
+                        isActive: _isActiveList[2])
+                  ],
+                ),),
+            Flexible(
+              flex: 3,
+
+                child: Stack(
+                  children: <Widget>[
+                    Container( color: Colors.red),
+                    Center(child: Text(_value3, style: TextStyle(fontSize: 20),)),
+                  ],
+
+                ),
+
+            )
+
           ],
+
         );
       },
     );
