@@ -96,8 +96,8 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () {
                       if (_formKey.currentState.validate())
                         print('Complete......');
-                      //Focus.of(context).requestFocus(new FocusNode());
-                      //Focus.of(context).unfocus();
+                        FocusScope.of(context).requestFocus(new FocusNode());
+
                     },
                     child: Text('Submit'),
                   )
