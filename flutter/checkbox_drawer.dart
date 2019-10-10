@@ -29,13 +29,20 @@ class _MyAppState extends State<MyApp> {
   Map<String, bool> _svCPU = new Map();
   Map<String, bool> _svIntel = new Map();
   Map<String, bool> _svAMD = new Map();
+  Map<String, bool> _svIntel7 = new Map();
+  Map<String, bool> _svIntel8 = new Map();
+  Map<String, bool> _svAMD2 = new Map();
+  Map<String, bool> _svAMD3 = new Map();
 
   @override
   void initState() {
     for (var x in _cpu) _svCPU.addAll({x: false});
     for (var x in _intcpu.keys) _svIntel.addAll({x: false});
     for (var x in _amdcpu.keys) _svAMD.addAll({x: false});
-
+    for (var x in _intcpu['7 Generation']) _svIntel7.addAll({x: false});
+    for (var x in _intcpu['8 Generation']) _svIntel8.addAll({x: false});
+    for (var x in _amdcpu['2 Generation']) _svAMD2.addAll({x: false});
+    for (var x in _amdcpu['3 Generation']) _svAMD3.addAll({x: false});
     super.initState();
   }
 
@@ -55,15 +62,72 @@ class _MyAppState extends State<MyApp> {
                             in (x == 'Intel' ? _intcpu.keys : _amdcpu.keys))
                           CheckboxListTile(
                             title: Text(y.toString()),
-                            subtitle: (_intcpu.keys.contains(y) ? _svIntel[y]: _svAMD[y] )
+                            subtitle: (_intcpu.keys.contains(y)
+                                    ? _svIntel[y]
+                                    : _svAMD[y])
                                 ? Column(
                                     children: <Widget>[
-                                      for (var z in (x == 'Intel' ? _intcpu[y] : _amdcpu[y]))
+                                      for (var z in (x == 'Intel'
+                                          ? _intcpu[y]
+                                          : _amdcpu[y]))
                                         CheckboxListTile(
-                                            value: false,
-                                            onChanged: (b){},
-                                            title: Text(z),
-                                            )
+                                          value: x == 'Intel'
+                                              ? y == '7 Generation'
+                                                  ? _svIntel7[z]
+                                                  : _svIntel8[z]
+                                              : y == '2 Generation'
+                                                  ? _svAMD2[z]
+                                                  : _svAMD3[z],
+                                          onChanged: (b) {
+                                            print('$x - $y - $z - $b');
+                                            switch (x) {
+                                              case 'Intel':
+                                                {
+                                                  switch (y) {
+                                                    case '7 Generation':
+                                                      {
+                                                        setState(() {
+                                                          _svIntel7[z] = b;
+                                                        });
+                                                      }
+                                                      break;
+                                                    case '8 Generation':
+                                                      {
+                                                        setState(() {
+                                                          _svIntel8[z] = b;
+                                                        });
+                                                      }
+                                                      break;
+                                                  }
+                                                }
+                                                break;
+                                              case 'AMD':
+                                                {
+                                                  switch (y) {
+                                                    case '2 Generation':
+                                                      {
+                                                        setState(() {
+                                                          _svAMD2[z] = b;
+                                                        });
+                                                      }
+                                                      break;
+                                                    case '3 Generation':
+                                                      {
+                                                        setState(() {
+                                                          _svAMD3[z] = b;
+                                                        });
+                                                      }
+                                                      break;
+                                                  }
+                                                }
+                                                break;
+                                            }
+
+                                            print(_svIntel7);
+                                            print(_svAMD2);
+                                          },
+                                          title: Text(z),
+                                        )
                                     ],
                                   )
                                 : Text(''),
