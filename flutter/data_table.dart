@@ -11,7 +11,9 @@ List<List<dynamic>> _lRow = [
   ['go', 1970, 5],
   ['java', 1971, 8],
   ['javascript', 1960, 1],
-  ['python', 1965, 3]
+  ['python', 1965, 3],
+  ['basic', 1935, 15],
+  ['vb', 1980, 13],
 ];
 
 List<String> _lColumn = ['Language', 'Date', 'Rating'];
@@ -22,7 +24,7 @@ int _sColumnIndex;
 
 void sorting(bool _as, int _indexP) {
   List<dynamic> _tempL;
-  for (var y = 0; y < (_lRow.length / 2).round() + 1; y++)
+  for (var y = 0; y < (_lRow.length / 4).round() * 3; y++)
     for (var x = y + 1; x < _lRow.length; x++)
       if (_as
           ? _lRow[y][_indexP].runtimeType == int
@@ -44,7 +46,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     _sAscending = true;
     _sColumnIndex = 0;
-    sorting(!_sAscending, _sColumnIndex);
+
+    sorting(_sAscending, _sColumnIndex);
+
     super.initState();
   }
 
