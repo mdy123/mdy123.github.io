@@ -16,7 +16,7 @@ void main() {
               ? _lRow[y][_indexP] > _lRow[x][_indexP]
               : _lRow[y][_indexP].toLowerCase().codeUnitAt(0) >
                   _lRow[x][_indexP].toLowerCase().codeUnitAt(0)
-          : _lRow[y][_indexP].runtimeType == String
+          : _lRow[y][_indexP].runtimeType == int
               ? _lRow[y][_indexP] < _lRow[x][_indexP]
               : _lRow[y][_indexP].toLowerCase().codeUnitAt(0) <
                   _lRow[x][_indexP].toLowerCase().codeUnitAt(0)) {
