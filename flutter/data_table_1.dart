@@ -24,6 +24,7 @@ int _sColumnIndex;
 
 List<bool> _lSelectRow;
 List<List<bool>> _cellEnable = [];
+List<List<bool>> _lShowEditIcon = [];
 
 void sorting(bool _as, int _indexP) {
   List<dynamic> _tempL;
@@ -50,8 +51,10 @@ class _MyAppState extends State<MyApp> {
     _sAscending = true;
     _sColumnIndex = 0;
     _lSelectRow = List.generate(_lRow.length, (i) => false);
-    for (var x in _lRow) _cellEnable.add(List.generate(x.length, (i) => false));
-
+    for (var x in _lRow) {
+      _cellEnable.add(List.generate(x.length, (i) => false));
+      _lShowEditIcon.add(List<bool>.filled(x.length, false, growable: false));
+    }
     sorting(_sAscending, _sColumnIndex);
 
     super.initState();
@@ -59,7 +62,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    print(_cellEnable);
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -69,9 +72,20 @@ class _MyAppState extends State<MyApp> {
           sortAscending: _sAscending,
           sortColumnIndex: _sColumnIndex,
           onSelectAll: (b) {
-            print('----------- $b ++++++++++++++');
+            print('Column Select - $b ');
             setState(() {
-              _lSelectRow.map((i) => b).toList();
+
+                for (var x = 0; x < _lRow.length; x++) {
+                  _cellEnable[x] = List<bool>.filled(
+                      _cellEnable[x].length, b, growable: false);
+                  _lShowEditIcon[x] = List<bool>.filled(
+                      _lShowEditIcon[x].length, b, growable: false);
+                }
+                _lSelectRow =
+                List<bool>.filled(_lRow.length, b, growable: false);
+
+
+
             });
           },
           columns: [
@@ -93,23 +107,45 @@ class _MyAppState extends State<MyApp> {
                   for (var y in x)
                     DataCell(
                         TextFormField(
-                          initialValue: '$y',
-                          enabled: _cellEnable[_lRow.indexOf(x)][_lRow[_lRow.indexOf(x)].indexOf(y)],
 
+
+                          initialValue: '$y',
+                          enabled: _cellEnable[_lRow.indexOf(x)]
+                              [_lRow[_lRow.indexOf(x)].indexOf(y)],
+                          onChanged: (s) {
+                            print('DataCell Changed $s');
+                            setState(() {
+                              _lRow[_lRow.indexOf(x)]
+                                  [_lRow[_lRow.indexOf(x)].indexOf(y)] = s;
+                            });
+                          },
                         ),
-                        placeholder: true,
-                        showEditIcon: true, onTap: () {
-                      print('$x  ----  $y');
-                      setState(() {
-                        _cellEnable[_lRow.indexOf(x)][_lRow[_lRow.indexOf(x)].indexOf(y)]= !_cellEnable[_lRow.indexOf(x)][_lRow[_lRow.indexOf(x)].indexOf(y)];
+                        placeholder: _lShowEditIcon[_lRow.indexOf(x)]
+                        [_lRow[_lRow.indexOf(x)].indexOf(y)],
+                        showEditIcon: _lShowEditIcon[_lRow.indexOf(x)]
+                            [_lRow[_lRow.indexOf(x)].indexOf(y)],
+                        onTap: () {
+                          print('TextFormFild onTap  - $x - $y');
+                          setState(() {
+                            _cellEnable[_lRow.indexOf(x)]
+                                    [_lRow[_lRow.indexOf(x)].indexOf(y)] =
+                                !_cellEnable[_lRow.indexOf(x)]
+                                    [_lRow[_lRow.indexOf(x)].indexOf(y)];
                       });
                     }),
                 ],
                 onSelectChanged: (b) {
-                  print('OnSelectedChanged    $b -- ${_lRow.indexOf(x)}');
+                  print('Row OnSelectedChanged    $b - ${_lRow.indexOf(x)}');
 
                   setState(() {
-
+                    _lShowEditIcon[_lRow.indexOf(x)] = List<bool>.filled(
+                        _lShowEditIcon[_lRow.indexOf(x)].length,
+                        !_lShowEditIcon[_lRow.indexOf(x)][0],
+                        growable: false);
+                    _cellEnable[_lRow.indexOf(x)] = List<bool>.filled(
+                        _cellEnable[_lRow.indexOf(x)].length,
+                        !_cellEnable[_lRow.indexOf(x)][0],
+                        growable: false);
                     _lSelectRow[_lRow.indexOf(x)] = b;
                   });
                 },
