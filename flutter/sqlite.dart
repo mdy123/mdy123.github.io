@@ -17,7 +17,8 @@ List<TextEditingController> _textEController = [
   new TextEditingController(),
   new TextEditingController()
 ];
-bool _show = false;
+bool _show = true;
+List<String> _lText = ['Add New', 'Delete All', 'Scroll'];
 
 class _MyAppState extends State<MyApp> {
   void _initDB() async {
@@ -37,9 +38,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    //print('DB.....');
-    //print(db.rawQuery('Select * from dogs').runtimeType);
-
     return MaterialApp(
       title: 'SqLite',
       home: Scaffold(
@@ -75,66 +73,67 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 12),
-                  child: Container(
+                for (var x = 0; x < 3; x++)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12, bottom: 12),
+                    child: Container(
                       width: constraints.constrainWidth() / 3.5,
                       color: Colors.red,
                       child: FlatButton(
-                          onPressed: () async {
-                            print(
-                                '${_textEController[0].value.toJSON()["text"]}');
-                            print(
-                                '${_textEController[1].value.toJSON()['text'].runtimeType}');
-                            await db.rawQuery(
-                                'insert into dogs (name, age) values ( "${_textEController[0].value.toJSON()['text']}", ${_textEController[1].value.toJSON()['text']})');
-
-                            //'insert into dogs (name, age) values ("yyy", 85)');
-                            setState(() {});
-                          },
-                          child: Text('Add New'))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 12),
-                  child: Container(
-                      width: constraints.constrainWidth() / 3.5,
-                      color: Colors.red,
-                      child: FlatButton(
-                          onPressed: () async {
-                            await db.rawQuery('Delete from dogs');
-                            setState(() {});
-                          },
-                          child: Text('Delete All'))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 12),
-                  child: Container(
-                      width: constraints.constrainWidth() / 3.5,
-                      color: Colors.red,
-                      child: FlatButton(
-                          onPressed: () {
-                            setState(() {
-                              _show = !_show;
-                            });
-                          },
-                          child: Text('Disable Scroll'))),
-                ),
+                        onPressed: () async {
+                          switch (x) {
+                            case 0:
+                              {
+                                await db.rawQuery(
+                                    'insert into dogs (name, age) values ( "${_textEController[0].value.toJSON()['text']}", ${_textEController[1].value.toJSON()['text']})');
+                                setState(() {});
+                              }
+                              break;
+                            case 1:
+                              {
+                                await db.rawQuery('Delete from dogs');
+                                setState(() {});
+                              }
+                              break;
+                            case 2:
+                              {
+                                setState(() {
+                                  _show = !_show;
+                                });
+                              }
+                              break;
+                          }
+                        },
+                        child: Text(_lText[x]),
+                      ),
+                    ),
+                  ),
                 _show
-                    ? SingleChildScrollView(
+                    ?
+                SingleChildScrollView(
                         controller: _sc,
                         scrollDirection: Axis.vertical,
                         child: Container(
                           height: 350,
                           child: FutureBuilder(
                               //future: db.rawQuery('Select * from dogs'),
-                              future: db.query('dogs'),
+                              future: Future.delayed(
+                                  Duration(milliseconds: 250), () {
+                                return db.query('dogs');
+                              }),
                               builder: (context, snapshot) {
                                 if (snapshot.data == null) {
-                                  return ListTile(
-                                    title: Text('Has Error'),
+                                  return ListView(
+                                    scrollDirection: Axis.vertical,
+                                    children: <Widget>[
+                                      ListTile(
+                                        title: Text('No Data'),
+                                      )
+                                    ],
                                   );
                                 } else {
                                   return ListView(
+                                    scrollDirection: Axis.vertical,
                                     children: <Widget>[
                                       for (var x in snapshot.data)
                                         ListTile(
