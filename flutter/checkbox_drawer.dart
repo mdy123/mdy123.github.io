@@ -42,8 +42,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    //print(_cpu['amd']['2 generation']['ryzen 3']);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('CPU Select'),
@@ -57,6 +55,22 @@ class _MyAppState extends State<MyApp> {
               title: Text(cpuType.toUpperCase()),
               value: _cpu[cpuType]['cpuselect']['select'],
               onChanged: (b) {
+                //_cpu['Intel']['cpuselect']['select'] == true
+
+                if (b == false) {
+                  for (var x = 1; x < _cpu[cpuType].length; x++)
+                    while (_cpu[cpuType][_cpu[cpuType].keys.toList()[x]]
+                        .containsValue(true))
+                      _cpu[cpuType][_cpu[cpuType].keys.toList()[x]][
+                          _cpu[cpuType][_cpu[cpuType].keys.toList()[x]]
+                              .keys
+                              .toList()[_cpu[cpuType]
+                                  [_cpu[cpuType].keys.toList()[x]]
+                              .values
+                              .toList()
+                              .indexOf(true)]] = false;
+                }
+
                 setState(() {
                   _cpu[cpuType]['cpuselect']['select'] = b;
                 });
@@ -70,6 +84,19 @@ class _MyAppState extends State<MyApp> {
                               title: Text(cpuSeries),
                               value: _cpu[cpuType][cpuSeries]['select'],
                               onChanged: (b) {
+                                //if (_cpu[cpuType][cpuSeries]['select'] == false)
+                                if (b == false)
+                                  for (var x = 1;
+                                      x < _cpu[cpuType][cpuSeries].length;
+                                      x++)
+                                    if (_cpu[cpuType][cpuSeries][_cpu[cpuType]
+                                            [cpuSeries]
+                                        .keys
+                                        .toList()[x]])
+                                      _cpu[cpuType][cpuSeries][_cpu[cpuType]
+                                              [cpuSeries]
+                                          .keys
+                                          .toList()[x]] = false;
                                 setState(() {
                                   _cpu[cpuType][cpuSeries]['select'] = b;
                                 });
