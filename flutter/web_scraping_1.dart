@@ -19,7 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final HttpClient _client = HttpClient();
-  
+
   int selectedPage = 1;
 
   @override
@@ -32,18 +32,45 @@ class _MyAppState extends State<MyApp> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
-            DropdownButton(
-                iconEnabledColor: Colors.blue,
-                value: selectedPage,
-                items: List.generate(5, (idx) => idx + 1)
-                    .map((v) =>
-                        DropdownMenuItem(value: v, child: Text('Page : $v')))
-                    .toList(),
-                onChanged: (v) {
-                  setState(() {
-                    selectedPage = v;
-                  });
-                }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                MaterialButton(
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 35,
+                    ),
+                    onPressed: selectedPage == 1
+                        ? null
+                        : () {
+                            setState(() {
+                              selectedPage--;
+                            });
+                          }),
+                Text(
+                  'Page  $selectedPage/5',
+                  style: TextStyle(fontSize: 20),
+                ),
+                MaterialButton(
+                    child: Icon(
+                      Icons.arrow_forward,
+                      size: 35,
+                    ),
+                    onPressed: selectedPage == 5
+                        ? null
+                        : () {
+                            setState(() {
+                              selectedPage++;
+                            });
+                          })
+              ],
+            ),
+            Divider(
+              endIndent: 25,
+              indent: 25,
+              color: Colors.grey,
+              thickness: 8,
+            ),
             FutureBuilder(
                 future: _client
                     .getUrl(Uri.parse(
@@ -87,3 +114,18 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+/*
+            DropdownButton(
+                iconEnabledColor: Colors.blue,
+                value: selectedPage,
+                items: List.generate(5, (idx) => idx + 1)
+                    .map((v) =>
+                        DropdownMenuItem(value: v, child: Text('Page : $v')))
+                    .toList(),
+                onChanged: (v) {
+                  setState(() {
+                    selectedPage = v;
+                  });
+                }),
+*/
