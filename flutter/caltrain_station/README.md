@@ -12,7 +12,7 @@
 ```sh
 Show the list of stations and station markers on the map.
 ```
-![image](https://drive.google.com/uc?id=1DuSQFPxbf5f1gvze6edesSG8zF8qPpD-)
+![image](./cs_2.jpg)
 ```sh
 Marker moves to the middle of map and shows the name when you touch it on the map.
 ```
