@@ -8,7 +8,7 @@
 
 
 ### Features
-![image](https://drive.google.com/uc?id=1S51NvkIpLRoVzxQ7k-XkLrJILYwquy9-)
+![image](./cs_1.jpg)
 ```sh
 Show the list of stations and station markers on the map.
 ```
