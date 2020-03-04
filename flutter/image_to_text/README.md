@@ -10,13 +10,13 @@
 ### Features
 ![image](./it_1.jpg)
 ```sh
-Show the list of stations and station markers on the map.
+Select the image from local storage or take the image directly from camera.
 ```
 ![image](./it_2.jpg)
 ```sh
-Marker moves to the middle of map and shows the name when you touch it on the map.
+Read the text from the image.
 ```
 ![image](./it_3.jpg)
 ```sh
-Show the map location on the browser when you touch the station from the list. 
+Google search the text translated from the image when pressed the search icon.
 ```
