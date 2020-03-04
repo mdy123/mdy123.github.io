@@ -10,9 +10,9 @@
 ### Features
 ![image](./ws_1.jpg)
 ```sh
-Show the list of stations and station markers on the map.
+Pull 100 records of data from SEC web page each time. 
 ```
 ![image](./ws_2.jpg)
 ```sh
-Marker moves to the middle of map and shows the name when you touch it on the map.
+Show totally of Puchase or Sell amount and company name from each record
 ```
