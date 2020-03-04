@@ -2,11 +2,11 @@
 
 ### Dart Packages
 
-- firebase_ml_vision &nbsp;&nbsp;(show google map with  marker of the stations )<br />
-    https://pub.dev/packages/google_maps_flutter
-- image_picker &nbsp;&nbsp;(select image from local storage or directly from camera )<br />
-    https://pub.dev/packages/google_maps_flutter
-- url_launcher &nbsp;&nbsp;(google search the text on the browser)<br />
+- firebase_ml_vision &nbsp;&nbsp;( convert the image to text )<br />
+    https://pub.dev/packages/firebase_ml_vision
+- image_picker &nbsp;&nbsp;( select the image from local storage or directly from camera )<br />
+    https://pub.dev/packages/image_picker
+- url_launcher &nbsp;&nbsp;( google search the text on the browser)<br />
     https://pub.dev/packages/url_launcher
 
 
