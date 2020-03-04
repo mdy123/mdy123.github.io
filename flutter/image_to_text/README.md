@@ -4,9 +4,9 @@
 
 - firebase_ml_vision &nbsp;&nbsp;(show google map with  marker of the stations )<br />
     https://pub.dev/packages/google_maps_flutter
-- image_picker &nbsp;&nbsp;(show google map with  marker of the stations )<br />
+- image_picker &nbsp;&nbsp;(select image from local storage or directly from camera )<br />
     https://pub.dev/packages/google_maps_flutter
-- url_launcher &nbsp;&nbsp;(launch google map on the browser from the station list)<br />
+- url_launcher &nbsp;&nbsp;(google search the text on the browser)<br />
     https://pub.dev/packages/url_launcher
 
 
