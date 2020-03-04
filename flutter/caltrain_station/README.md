@@ -1,13 +1,13 @@
 # CalTrain Station Map App
 
-##### Dart Packages
+### Dart Packages
 - google_maps_flutter &nbsp;&nbsp;(show google map with  marker of the stations )<br />
     https://pub.dev/packages/google_maps_flutter
 - url_launcher &nbsp;&nbsp;(launch google map on the browser from the station list)<br />
     https://pub.dev/packages/url_launcher
 
 
-##### Features
+### Features
 ![image](https://drive.google.com/uc?id=1S51NvkIpLRoVzxQ7k-XkLrJILYwquy9-)
 ```sh
 Show the list of stations and station markers on the map.
