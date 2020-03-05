@@ -4,7 +4,7 @@
 ### Dart Packages
 - html &nbsp;&nbsp;(parsing html page)<br />
     https://pub.dev/packages/html
-- webview_flutter &nbsp;&nbsp;(launch web page)<br />
+- webview_flutter &nbsp;&nbsp;(launch web page in the app)<br />
     https://pub.dev/packages/webview_flutter
 
 
