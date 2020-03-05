@@ -11,7 +11,7 @@
 ### Features
 ![image](./ws_1.jpg)
 ```sh
-Pull 100 records of data from SEC web page each time. 
+Pull 100 records of data from web page each time. 
 ```
 ![image](./ws_2.jpg)
 ```sh
