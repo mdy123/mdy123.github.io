@@ -3,9 +3,9 @@
 
 ### Dart Packages
 - html &nbsp;&nbsp;(show google map with  marker of the stations )<br />
-    https://pub.dev/packages/google_maps_flutter
+    https://pub.dev/packages/html
 - webview_flutter &nbsp;&nbsp;(launch google map on the browser from the station list)<br />
-    https://pub.dev/packages/url_launcher
+    https://pub.dev/packages/webview_flutter
 
 
 ### Features
