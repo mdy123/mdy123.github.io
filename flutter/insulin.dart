@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 
-
 void main() => runApp(MaterialApp(
       title: 'Insulin Dose',
       routes: {
@@ -23,7 +22,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = [
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>()
+  ];
   final _textEditingController = [
     TextEditingController(),
     TextEditingController()
@@ -44,19 +46,20 @@ class _MyAppState extends State<MyApp> {
     'Carb (Grams)': 0,
     'Current B.G': 0,
   };
+  //String indexToKey = 'Carb (Grams)';
 
   bool isNumeric(String str) {
-    try{
+    try {
       double.parse(str);
     } on FormatException {
       return false;
     }
     return true;
-
   }
+
   double douseCal() {
     if (dropdownValue['Carb (Grams)'] == 0 || dropdownValue['Current B.G'] == 0)
-    //if (dropdownValue['Current B.G'] == 0)
+      //if (dropdownValue['Current B.G'] == 0)
       return 0.0;
     else
       return ((dropdownValue['Current B.G'] - dropdownValue['Target B.G']) /
@@ -77,10 +80,20 @@ class _MyAppState extends State<MyApp> {
           child: TextFormField(
             controller: _textEditingController[i],
             keyboardType: TextInputType.number,
+            onChanged: (v) {
+              print(_formKey[i]);
+
+              setState(() {
+                dropdownValue[x] =
+                    _formKey[i].currentState.validate() ? double.parse(v) : 0;
+              });
+              print('$x -  ${dropdownValue[x]}');
+            },
             validator: (v) {
-              if ((v.isEmpty) || !isNumeric(v) || double.parse(v)==0){
+              if ((v.isEmpty) || !isNumeric(v) || double.parse(v) == 0) {
                 setState(() {
-                  i==0? dropdownValue['Carb (Grams)']=0: dropdownValue['Current B.G']=0;
+                  //i==0? dropdownValue[indexToKey]=0: dropdownValue[indexToKey]=0;
+                  dropdownValue[x] = 0;
                 });
 
                 return '*';
@@ -94,13 +107,12 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-
-@override
+  @override
   void initState() {
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     super.initState();
   }
 
@@ -124,72 +136,50 @@ class _MyAppState extends State<MyApp> {
       builder: (context, constraints) {
         return Container(
           padding: EdgeInsets.only(top: 15, left: 50, right: 50),
-          child: Column(
-              children: [
-                for (var key in fieldNames.keys)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('$key'),
-                      DropdownButton(
-                          value: dropdownValue[key],
-                          items: fieldNames[key].map((value) {
-                            return DropdownMenuItem(
-                              value: value,
-                              child: Text('$value'),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              dropdownValue[key] = newValue;
-                            });
-                          }),
-                    ],
-                  ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-
-                    children: <Widget>[
-                      genCarbCurrentBG('Carb (Grams)', 0),
-                      genCarbCurrentBG('Current B.G', 1),
-                      Container(
-                        height: 15,
-                      ),
-                      RaisedButton(
-                        color: Colors.green,
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            setState(() {
-                              dropdownValue['Carb (Grams)'] =
-                                  double.parse(_textEditingController[0].text);
-                              dropdownValue['Current B.G'] =
-                                  double.parse(_textEditingController[1].text);
-                            });
-                          }
-                        },
-                        child: Text('Calculate'),
-                      ),
-
-                      Container(
-                        margin: EdgeInsets.only(top: 15),
-                        color: Colors.red,
-                        alignment: Alignment.center,
-                        child: douseCal() != 0.0
-                            ? Text(
-                          '${douseCal().toStringAsFixed(2)}',
-                          style: TextStyle(fontSize: 21, color: Colors.white),
-                        )
-                            : Text(
-                          '${'No Result'}',
-                          style: TextStyle(fontSize: 21, color: Colors.white),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-
-              ]),
+          child: Column(children: [
+            for (var key in fieldNames.keys)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('$key'),
+                  DropdownButton(
+                      value: dropdownValue[key],
+                      items: fieldNames[key].map((value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text('$value'),
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        setState(() {
+                          dropdownValue[key] = newValue;
+                        });
+                      }),
+                ],
+              ),
+            Form(
+              key: _formKey[0],
+              child: genCarbCurrentBG('Carb (Grams)', 0),
+            ),
+            Form(
+              key: _formKey[1],
+              child: genCarbCurrentBG('Current B.G', 1),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 15),
+              color: Colors.red,
+              alignment: Alignment.center,
+              child: douseCal() != 0.0
+                  ? Text(
+                      '${douseCal().toStringAsFixed(2)}',
+                      style: TextStyle(fontSize: 21, color: Colors.white),
+                    )
+                  : Text(
+                      '${'No Result'}',
+                      style: TextStyle(fontSize: 21, color: Colors.white),
+                    ),
+            )
+          ]),
         );
       },
     );
