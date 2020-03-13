@@ -15,6 +15,6 @@ Data Validating
 ```
 ![image](./one_1.jpg)
 ```sh
-Marker moves to the middle of map and shows the name when you touch it on the map.
+The Result changes instanltly depened on the inputs.
 ```
 
