@@ -17,3 +17,8 @@ Pull 100 records of data from web page each time.
 ```sh
 Show totally of Puchase or Sell amount and company name from each record
 ```
+![image](./ws_3.jpg)
+```sh
+When select the item from the list, it opens new window with 
+three tabs (yahoo,sec and google ) for more information about that company. 
+```
