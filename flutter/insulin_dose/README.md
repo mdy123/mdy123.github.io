@@ -1,10 +1,9 @@
 # Insulin Dose Calculator
 
 ### Dart Packages
-- google_maps_flutter &nbsp;&nbsp;(show google map with  marker of the stations )<br />
+- Flutter Material Design package <br />
     https://pub.dev/packages/google_maps_flutter
-- url_launcher &nbsp;&nbsp;(launch google map on the browser from the station list)<br />
-    https://pub.dev/packages/url_launcher
+
 
 
 ### Features
