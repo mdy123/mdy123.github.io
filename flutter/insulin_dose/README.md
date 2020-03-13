@@ -9,9 +9,9 @@
 ### Features
 ![image](./two_1.jpg)
 ```sh
-Error checking
+Data Validating
 - No zero value at Carb and Target G.B  data fileds.
-- No character allow at Carb and Target G.B data fields.
+- No character at Carb and Target G.B data fields.
 ```
 ![image](./one_1.jpg)
 ```sh
