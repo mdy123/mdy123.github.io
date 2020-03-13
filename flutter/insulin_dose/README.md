@@ -10,8 +10,8 @@
 ![image](./two_1.jpg)
 ```sh
 Data Validating
-- no zero value at Carb and Target G.B  data fileds.
-- no character at Carb and Target G.B data fields.
+- no zero value at Carb and Target G.B  data fields.
+- only number at Carb and Target G.B data fields.
 ```
 ![image](./one_1.jpg)
 ```sh
