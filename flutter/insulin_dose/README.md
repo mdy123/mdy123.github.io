@@ -1,15 +1,17 @@
 # Insulin Dose Calculator
 
 ### Dart Packages
-- Flutter Material Design package <br />
-    https://pub.dev/packages/google_maps_flutter
+- Flutter material design package <br />
+    https://api.flutter.dev/flutter/material/material-library.html
 
 
 
 ### Features
 ![image](./two_1.jpg)
 ```sh
-Show the list of stations and station markers on the map.
+Error checking
+- No zero value at Carb and Target G.B  data fileds.
+- No character allow at Carb and Target G.B data fields.
 ```
 ![image](./one_1.jpg)
 ```sh
