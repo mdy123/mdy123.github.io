@@ -13,7 +13,7 @@
 ### Features
 ![image](./user_new.png)
 ```sh
-New user information is saved into firstore after successsfully sign in through google sign-in.
+New user information is saved into firestore after successsfully sign in through google sign-in.
 ```
 ![image](./user_old.png)
 ```sh
