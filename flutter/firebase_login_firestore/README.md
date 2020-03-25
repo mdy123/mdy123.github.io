@@ -4,18 +4,18 @@
 
 - firebase authentication &nbsp;&nbsp;( google cloud firebase autentication service )<br />
     https://pub.dev/packages/firebase_auth
-- google sig-in &nbsp;&nbsp;( autenticate user using google sign-in  )<br />
+- google sign-in &nbsp;&nbsp;( authenticate user using google sign-in  )<br />
     https://pub.dev/packages/google_sign_in
 - firestor nosql database &nbsp;&nbsp;( google cloud firestore database to store user information)<br />
     https://pub.dev/packages/cloud_firestore
 
 
 ### Features
-![image](./user_new.jpg)
+![image](./user_new.png)
 ```sh
-Select the image from local storage or take the image directly from camera.
+New user information is saved into firstore after successsfully sign in through google sign-in.
 ```
-![image](./user_old.jpg)
+![image](./user_old.png)
 ```sh
-Convert the image to text using Google firebase_ml_vision package.
+After old user successsfully sign in through google sign-in using firebase cloud authentication.
 ```
