@@ -15,11 +15,11 @@
 ```sh
 Google sign-in using Google Cloud Firebase authentication service.
 ```
-![image](./user_new.png)
+![image](./new_user.png)
 ```sh
 New user information is saved into Firestore after successsfully sign in through Google sign-in.
 ```
-![image](./user_old.png)
+![image](./old_user.png)
 ```sh
 After old user successsfully sign in through Google sign-in using Firebase cloud authentication.
 ```
