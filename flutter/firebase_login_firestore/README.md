@@ -11,6 +11,10 @@
 
 
 ### Features
+![image](./sign_in.png)
+```sh
+Google sign-in using Google Cloud Firebase authentication service.
+```
 ![image](./user_new.png)
 ```sh
 New user information is saved into firestore after successsfully sign in through google sign-in.
