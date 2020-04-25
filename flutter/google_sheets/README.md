@@ -6,7 +6,10 @@
 - HTML flutter package <br />
     https://pub.dev/packages/html
 
-
+Link to the Web Version Of this App.
+http://mdy123.github.io/flutter/google_sheets/web/#/
+    - Swipe Swipe left or right to delete data
+    - Form with data validations to input data
 
 ### Features
 ![image](./sheet1.jpg)
