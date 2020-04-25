@@ -6,12 +6,12 @@
 - HTML flutter package <br />
     https://pub.dev/packages/html
 
-Link to the Web Version Of this App.
+### Link to the Web Version Of this App.
 ```sh
 http://mdy123.github.io/flutter/google_sheets/web/#/
     - Swipe Swipe left or right to delete data
     - Form with data validations to input data
-```sh
+```
 ### Features
 ![image](./sheet1.jpg)
 ```sh
@@ -21,7 +21,7 @@ Pull the data from Google Sheet.
 ```sh
 Swipe left or right to delete data.
 ```
-[image](./sheet3.jpg)
+![image](./sheet3.jpg)
 ```sh
 Data Validation before sending to Google Sheet
     - Null data validation
