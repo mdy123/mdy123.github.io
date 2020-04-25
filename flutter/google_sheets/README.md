@@ -3,6 +3,8 @@
 ### Dart Packages
 - Flutter material design package <br />
     https://api.flutter.dev/flutter/material/material-library.html
+- HTML flutter package <br />
+    https://pub.dev/packages/html
 
 
 
