@@ -7,13 +7,17 @@
 
 
 ### Features
-![image](./two_1.jpg)
+![image](./sheet1.jpg)
 ```sh
 Data Validating
 - no zero value at Carb and Target G.B  data fields.
 - only number at Carb and Target G.B data fields.
 ```
-![image](./one_1.jpg)
+![image](./sheet2.jpg)
+```sh
+The Result changes instanltly depened on the inputs.
+```
+[image](./sheet3.jpg)
 ```sh
 The Result changes instanltly depened on the inputs.
 ```
