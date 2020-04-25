@@ -19,6 +19,9 @@ Swipe left or right to delete data.
 ```
 [image](./sheet3.jpg)
 ```sh
-The Result changes instanltly depened on the inputs.
+Data Validation before sending to Google Sheet
+    - Null data validation
+    - Number data validation for age
+    - Email format data validation for email
 ```
 
