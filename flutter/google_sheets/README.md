@@ -9,7 +9,7 @@
 ### Link to the Web Version Of this App.
 http://mdy123.github.io/flutter/google_sheets/web/#/
 ```sh
-    - Swipe Swipe left or right to delete data
+    - Swipe left or right to delete data
     - Form with data validations to input data
 ```
 ### Features
