@@ -12,7 +12,7 @@ http://mdy123.github.io/flutter/google_sheets/web/#/
     - Swipe left or right to delete data
     - Form with data validations to input data
 ```
-### Features
+### App Features
 ![image](./sheet1.jpg)
 ```sh
 Pull the data from Google Sheet.
