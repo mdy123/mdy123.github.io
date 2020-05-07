@@ -145,7 +145,6 @@ class _JobListState extends State<JobList> {
   @override
   Widget build(BuildContext context) {
     return TabBarView(
-
       children: jobTab.map((v) {
         return Padding(
           padding: EdgeInsets.only(top: 25),
@@ -169,10 +168,53 @@ class _JobListState extends State<JobList> {
 }
 
 class Notifications extends StatelessWidget {
+  final List<List<String>> _nRecord = [
+    ['MAS Export job', 'Starts at 2:30 PM'],
+    ['MAS Export job', 'Cargo Cut-Off at 5:30 PM'],
+    ['MAS Export job', 'Starts at 8:30 PM'],
+    ['MAS Export job', 'Cargo Cut-Off at 7:30 PM'],
+    ['MAS Export job', 'Starts at 3:00 AM'],
+    ['MAS Export job', 'Cargo Cut-Off at 1:00 AM '],
+  ];
+  final String _titlePre = 'Reminder  :- ';
+  final int l = 5;
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Notifications', style: Theme.of(context).textTheme.title),
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 8),
+      child: ListView.separated(
+          scrollDirection: Axis.vertical,
+          itemBuilder: (_,i){
+            return ListTile(
+              // contentPadding: EdgeInsets.only(top: 8),
+              title: Text(
+                '$_titlePre ${_nRecord[i][0]}',
+                style: Theme.of(context).textTheme.subhead,
+              ),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(left: 85),
+                child: Row(
+                  children: <Widget>[
+                    Icon(IconData(58133, fontFamily: 'MaterialIcons')),
+                    Text(
+                      '${_nRecord[i][1]}',
+                      style: Theme.of(context).textTheme.subtitle,
+                    )
+                  ],
+                ),
+              ),
+            );
+
+
+          },
+          separatorBuilder: (_,i)=>
+          Divider(
+            color: Colors.grey,
+            thickness: 3,
+          ),
+          itemCount: _nRecord.length,
+      )
     );
   }
 }
