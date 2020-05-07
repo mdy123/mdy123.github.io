@@ -182,10 +182,10 @@ class Notifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      child: ListView.separated(
+        padding: const EdgeInsets.only(left: 8, right: 8),
+        child: ListView.separated(
           scrollDirection: Axis.vertical,
-          itemBuilder: (_,i){
+          itemBuilder: (_, i) {
             return ListTile(
               // contentPadding: EdgeInsets.only(top: 8),
               title: Text(
@@ -205,17 +205,13 @@ class Notifications extends StatelessWidget {
                 ),
               ),
             );
-
-
           },
-          separatorBuilder: (_,i)=>
-          Divider(
+          separatorBuilder: (_, i) => Divider(
             color: Colors.grey,
             thickness: 3,
           ),
           itemCount: _nRecord.length,
-      )
-    );
+        ));
   }
 }
 
@@ -228,11 +224,65 @@ class Commissions extends StatelessWidget {
   }
 }
 
-class AccountSettings extends StatelessWidget {
+class AccountSettings extends StatefulWidget {
+  @override
+  _AccountSettingsState createState() => _AccountSettingsState();
+}
+
+enum Languages { English, Sinhala }
+
+class _AccountSettingsState extends State<AccountSettings> {
+  final Map _userInfo = {
+    'name': 'Soreth Poora',
+    'phone': '0777 554 135',
+    'pic': './assets/logo.png'
+  };
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Accout Settings', style: Theme.of(context).textTheme.title),
-    );
+    Languages _selectedLanguage = Languages.English;
+
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Flexible(
+            child: Center(
+              child: CircleAvatar(
+                radius: 50,
+                backgroundColor: Theme.of(context).primaryColor,
+                child: Text('HaulMatic'),
+              ),
+            ),
+            flex: 3,
+          ),
+          Flexible(
+            flex: 3,
+            child: Column(
+              children: <Widget>[
+                Text(_userInfo['name'],
+                    style: Theme.of(context).textTheme.headline),
+                Text(_userInfo['phone'],
+                    style: Theme.of(context).textTheme.subhead),
+              ],
+            ),
+          ),
+          Flexible(
+            child: ListView(
+                children: Languages.values.map((v) {
+              return ListTile(
+                title: Text('${v.toString().split('.')[1]}'),
+                leading: Radio(
+                    value: v,
+                    groupValue: _selectedLanguage,
+                    onChanged: (v) {
+                      setState(() {
+                        _selectedLanguage = v;
+                      });
+                    }),
+              );
+            }).toList()),
+            flex: 3,
+          ),
+        ]);
   }
 }
