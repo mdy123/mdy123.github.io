@@ -30,6 +30,8 @@ void main() {
               centerTitle: true,
               bottom: TabBar(
                 isScrollable: true,
+                indicatorColor: Colors.orange,
+                indicatorWeight: 5,
                 tabs: jobTab.map((v) {
                   return Tab(
                     text: v,
@@ -143,6 +145,7 @@ class _JobListState extends State<JobList> {
   @override
   Widget build(BuildContext context) {
     return TabBarView(
+
       children: jobTab.map((v) {
         return Padding(
           padding: EdgeInsets.only(top: 25),
