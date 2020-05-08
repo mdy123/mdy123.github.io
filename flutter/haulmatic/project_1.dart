@@ -57,12 +57,23 @@ void main() {
       '/Commissions': (
         context,
       ) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('Commissions'),
-            centerTitle: true,
+        return DefaultTabController(
+          length: commissionTab.length,
+          initialIndex: 0,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('Commissions'),
+              centerTitle: true,
+              bottom: TabBar(
+                  isScrollable: true,
+                  indicatorColor: Colors.orange,
+                  indicatorWeight: 5,
+                  tabs: commissionTab.map((v) {
+                    return Text(v);
+                  }).toList()),
+            ),
+            body: Commissions(),
           ),
-          body: Commissions(),
         );
       },
       '/AccountSettings': (
@@ -134,6 +145,7 @@ class _HomeState extends State<Home> {
 }
 
 const List<String> jobTab = ['Ongoing', 'Pending', 'Completed', 'Declined'];
+const List<String> commissionTab = ['Today', 'This Week', 'This Month'];
 //List<TabController> jobTabController = List.generate(jobTab.length, (i)=> new TabController());
 
 class JobList extends StatefulWidget {
@@ -216,11 +228,44 @@ class Notifications extends StatelessWidget {
 }
 
 class Commissions extends StatelessWidget {
+  final List<Map<String, double>> _commissionRecord = [
+    {'MAS Import': 3000},
+    {'MAS Export': 2000},
+    {'MAERS Export': 6000},
+    {'Brandix Import': 1000}
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Text('Commissions Earned',
-            style: Theme.of(context).textTheme.title));
+    return Column(
+      children: <Widget>[
+        Expanded(
+          flex: 3,
+            child: Center(child: Text('12000.00', style: Theme.of(context).textTheme.display1,))
+        ),
+        Flexible(
+          flex: 5,
+          child: TabBarView(
+            children: commissionTab
+                .map((v) => DataTable(
+                columns: [
+                  DataColumn(label: Text('Type')),
+                  DataColumn(label: Text('Amount')),
+                ],
+                rows: _commissionRecord
+                    .map(
+                      (v) => DataRow(cells: [
+                    DataCell(Text('${v.keys.toList()[0]}')),
+                    DataCell(Text(
+                        '${v.values.toList()[0].toStringAsFixed(2)}')),
+                  ]),
+                )
+                    .toList()))
+                .toList(),
+          ),
+        ),
+      ],
+    );
   }
 }
 
