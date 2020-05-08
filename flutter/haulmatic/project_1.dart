@@ -12,6 +12,15 @@ void main() {
       '/': (context) {
         return Scaffold(
           appBar: AppBar(
+            title: Text('HaulMatic'),
+            centerTitle: true,
+          ),
+          body: Login(),
+        );
+      },
+      '/Home': (context) {
+        return Scaffold(
+          appBar: AppBar(
             title: Text('Home'),
             centerTitle: true,
           ),
@@ -90,6 +99,22 @@ void main() {
     },
   ));
 }
+
+class Login extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GestureDetector(
+          child: Image.asset('./assets/google_login.png'),
+          onTap: (){
+            Navigator.pushNamed(
+                context, '/Home');
+          },
+      ),
+    );
+  }
+}
+
 
 class Home extends StatefulWidget {
   @override
