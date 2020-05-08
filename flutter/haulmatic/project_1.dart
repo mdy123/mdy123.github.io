@@ -12,7 +12,14 @@ void main() {
       '/': (context) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('HaulMatic'),
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('HaulMatic Technology', style: TextStyle(color: Colors.white, fontSize: 19.0) ),
+                Container(height: 8,),
+                Text('Driver Mobile Application', style: TextStyle(color: Colors.white, fontSize: 16.0))
+              ],
+            ),
             centerTitle: true,
           ),
           body: Login(),
@@ -273,6 +280,7 @@ class Commissions extends StatelessWidget {
           child: TabBarView(
             children: commissionTab
                 .map((v) => DataTable(
+
                 columns: [
                   DataColumn(label: Text('Type')),
                   DataColumn(label: Text('Amount')),
