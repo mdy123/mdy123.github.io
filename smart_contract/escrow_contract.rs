@@ -1,5 +1,14 @@
-//  ----------  Escrow Contract on Near blockchain --------
-//  ---------------   Near-SDK 4.0.0  ---------------------
+//  ----------  Escrow Contract on Near blockchain -----------
+//  ---------------   Near-SDK 4.0.0  ------------------------
+//  ------------Rust Programming Language  (1.61.0) ----------
+
+// Use "new" funtion to initialize escrow contract by using Buyer's near id , Seller's near id and agreed price .
+// Buyer and Seller use "init_escrow" function to sign in and change the state from "NotInitiated" to "AwaitingPayment".
+// Buyer uses "deposite" function to pay to the escow contract and change the state from "AwaitingPayment" to "AwaitingDelivery".
+// Buyer uses "confirm_delivery" function to change the state from "AwaitingDelivery" to "Complete" and tranfer the amount from smart contract to Seller.
+// Owner of the contract use "withdraw" function to cancal the contract.
+// Owner use "reset" function to reset buyer, seller, price, state, is_user_in and is_buyer_in settings.
+// Use "get_all_data" function to get current states of the contract.
 
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::env::log_str;
@@ -187,7 +196,8 @@ impl Escrow {
         if self.state != State::Complete {
             if self.state == State::AwaitingDelivery {
                 log_str(&format!("Pay deposite {} back to buyer.", self.price));
-                self.pay_back(self.price);
+                // Transfer money back from contract to buyer
+                Promise::new(self.buyer.clone()).transfer(self.price);
             }
 
             log_str(&format!("Change {} to Complete state.", self.state));
