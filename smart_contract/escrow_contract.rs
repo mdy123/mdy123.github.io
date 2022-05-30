@@ -7,7 +7,7 @@
 // Buyer uses "deposite" function to pay to the escow contract and change the state from "AwaitingPayment" to "AwaitingDelivery".
 // Buyer uses "confirm_delivery" function to change the state from "AwaitingDelivery" to "Complete" and tranfer the amount from smart contract to Seller.
 // Owner of the contract use "withdraw" function to cancal the contract.
-// Owner use "reset" function to reset buyer, seller, price, state, is_user_in and is_buyer_in settings.
+// Owner use "reset" function to reset buyer, seller, price, state, is_buyer_in and is_seller_in settings.
 // Use "get_all_data" function to get current states of the contract.
 
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
