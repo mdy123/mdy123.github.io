@@ -28,4 +28,4 @@
 > * near call owner.escrow.testnet reset '{}' --account-id owner.escrow.testnet  
 
 &nbsp; Function "get_all_data" returns all the data of this contract.  
-> * near call owner.escrow.testnet get_all_data '{}' --account-id buyer.escrow.testnet  
+> * near view owner.escrow.testnet get_all_data '{}' --account-id buyer.escrow.testnet  
