@@ -2,7 +2,7 @@
 //  ---------------   Near-SDK 4.0.0  ------------------------
 //  ------------Rust Programming Language  (1.61.0) ----------
 
-// Use "new" funtion to initialize escrow contract by using Buyer's near id , Seller's near id and agreed price .
+// Use "new" funtion to initialize escrow contract by assigning Buyer's near id , Seller's near id and agreed price .
 // Buyer and Seller use "init_escrow" function to sign in and change the state from "NotInitiated" to "AwaitingPayment".
 // Buyer uses "deposite" function to pay to the escow contract and change the state from "AwaitingPayment" to "AwaitingDelivery".
 // Buyer uses "confirm_delivery" function to change the state from "AwaitingDelivery" to "Complete" and tranfer the amount from smart contract to Seller.
