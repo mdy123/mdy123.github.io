@@ -10,7 +10,6 @@
 	
 &nbsp; Functon "new" initializes the smart contract by assigning Buyer's Near id, Seller's Near Id and agreed Price.  
 > * near deploy --accountId owner.escrow.testnet --wasmFile target/wasm32-unknown-unknown/release/escrow.wasm --initFunction new --initArgs '{"buyer": "buyer.escrow.testnet", "seller": "seller.escrow.testnet", "price": "5"}'
-
 &nbsp; Buyer and Seller use "init_escrow" function to sign in and change the state from "NotInitiated" to "AwaitingPayment".  
 > * near call owner.escrow.testnet init_escrow '{}' --account-id buyer.escrow.testnet  
 > * near call owner.escrow.testnet init_escrow '{}' --account-id seller.escrow.testnet  
@@ -23,4 +22,4 @@
 &nbsp; Owner of this contract uses "reset" function to reset Buyer id, Seller id, agreed Price and the state back to NotInitiated.  
 > * near call owner.escrow.testnet reset '{}' --account-id owner.escrow.testnet  
 &nbsp; Function "get_all_data" returns all the data of this contract.  
-> * near call owner.escrow.testnet get_all_data '{}' --account-id buyer.escrow.testnet
+> * near call owner.escrow.testnet get_all_data '{}' --account-id buyer.escrow.testnet  
