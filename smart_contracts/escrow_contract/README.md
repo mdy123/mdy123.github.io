@@ -8,7 +8,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. AwaitingDelivery,  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. Complete, 
 	
-&nbsp; Functon "new" initializes the smart contract by assigning Buyer's Near id, Seller's Near Id and Agreed Price.  
+&nbsp; Functon "new" initializes the smart contract by assigning Buyer's Near id, Seller's Near Id and agreed Price.  
 
 &nbsp; Buyer and Seller use "init_escrow" function to sign in and change the state from "NotInitiated" to "AwaitingPayment".  
 
